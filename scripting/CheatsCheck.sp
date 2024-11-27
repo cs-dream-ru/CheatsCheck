@@ -8,7 +8,7 @@
 #undef REQUIRE_PLUGIN
 #include <adminmenu>
 
-#define OVERLAY_PATH "overlay_cheats/ban_cheats"	// Overlay file
+#define OVERLAY_PATH "overlay_cheats/ban_cheats3"	// Overlay file
 
 TopMenu g_hTopMenu = null;
 
@@ -267,18 +267,18 @@ public void Menu_PanelCheck(int client)
 	char temp[1280];
 	char temp2[128];
 	Menu hMenu = new Menu(MenuHandler_PanelCheck);
-	Format(temp, sizeof(temp), "%t", "Menu_CheckPanel", clientChoose, GetStatus(player_info[client].StatusCheck));
+	Format(temp, sizeof(temp), "%T", "Menu_CheckPanel", client, clientChoose, GetStatus(player_info[client].StatusCheck));
 	hMenu.SetTitle(temp);
 	if(player_info[client].StatusCheck != STATUS_RESULT)
 	{
-		Format(temp2, sizeof(temp2), "%t\n ", "Menu_TopMenuHelpName")
+		Format(temp2, sizeof(temp2), "%T\n ", "Menu_TopMenuHelpName", client)
 		hMenu.AddItem("HowToCheck", temp2);
 	}
 	if(player_info[client].StatusCheck == STATUS_WAITDISCORD)
 	{
 		Format(temp, sizeof(temp), "%s\n ", temp);
 		hMenu.SetTitle(temp);
-		Format(temp, sizeof(temp), "%t", "Menu_NotifyDiscord")
+		Format(temp, sizeof(temp), "%T", "Menu_NotifyDiscord", client)
 		hMenu.AddItem("Notif", temp);
 	}
 	else if(player_info[client].StatusCheck == STATUS_WAITCALL)
@@ -288,30 +288,30 @@ public void Menu_PanelCheck(int client)
 	}
 	else if(player_info[client].StatusCheck == STATUS_CHECKING)
 	{
-		Format(temp, sizeof(temp), "%t", "Menu_EndCheck")
+		Format(temp, sizeof(temp), "%T", "Menu_EndCheck", client)
 		hMenu.AddItem("Status", temp);
 	}
 	else if(player_info[client].StatusCheck == STATUS_RESULT)
 	{
-		Format(temp, sizeof(temp), "%t", "Menu_ResultNoCheats")
+		Format(temp, sizeof(temp), "%T", "Menu_ResultNoCheats", client)
 		hMenu.AddItem("GoodResult", temp);
-		Format(temp, sizeof(temp), "%t", "Menu_ResultCheats")
+		Format(temp, sizeof(temp), "%T", "Menu_ResultCheats", client)
 		hMenu.AddItem("BadResult", temp);
 	}
 	if(!player_info[clientChoose].BlockSpec)
 	{
 		if(GetClientTeam(clientChoose) != CS_TEAM_SPECTATOR)
 		{
-			Format(temp, sizeof(temp), "%t", "Menu_ToSpec")
+			Format(temp, sizeof(temp), "%T", "Menu_ToSpec", client)
 			hMenu.AddItem("ToSpec", temp);
 		}
 		else
 		{
-			Format(temp, sizeof(temp), "%t", "Menu_BlockSpec")
+			Format(temp, sizeof(temp), "%T", "Menu_BlockSpec", client)
 			hMenu.AddItem("BlockSpec", temp);
 		}
 	}
-	Format(temp, sizeof(temp), "%t", "Menu_StopCheck")
+	Format(temp, sizeof(temp), "%T", "Menu_StopCheck", client)
 	hMenu.AddItem("GoodResult", temp);
 	hMenu.ExitButton = false;
 	hMenu.Display(client, 0);
@@ -400,7 +400,7 @@ public void Menu_CheckCheats_PlayerChoose(int client)
 		char temp[128];
 		char temp2[128];
 		Menu hMenu = new Menu(MenuHandler_CheckCheats_PlayerChoose);
-		Format(temp, sizeof(temp), "%t", "Menu_ChoosePlayer")
+		Format(temp, sizeof(temp), "%T", "Menu_ChoosePlayer", client)
 		hMenu.SetTitle(temp);
 		for(int i = 1; i <= MaxClients; i++)
 		{
@@ -478,7 +478,7 @@ public void OnAdminMenuReady(Handle aTopMenu)
 	if (hMyCategory != INVALID_TOPMENUOBJECT)
     {
         g_hTopMenu.AddItem("check_cheats", Handler_Admin_CheckCheats2, hMyCategory, "check_cheats", ADMFLAG_BAN, "check_cheats");
-		g_hTopMenu.AddItem("check_cheats_help", Handler_Admin_CheckCheats3, hMyCategory, "check_cheats_help", ADMFLAG_BAN, "check_cheats_help");
+		//g_hTopMenu.AddItem("check_cheats_help", Handler_Admin_CheckCheats3, hMyCategory, "check_cheats_help", ADMFLAG_BAN, "check_cheats_help");
 	}
 }
 
