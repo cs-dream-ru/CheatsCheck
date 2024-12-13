@@ -454,7 +454,8 @@ public void MakeVerify(int client, int clientChoose)
 	player_info[client].ActionPlayer = GetClientUserId(clientChoose);
 	CPrintToChatAll("%t", "Chat_PlayerToCheck", client, clientChoose);
 	LogToFileEx(logFile, "%t", "Log_PlayerToCheck", client, clientChoose);
-	CPrintToChat(clientChoose, "%t %t\n%t %t, %t", "Chat_Prefix", "Chat_ToCheckPlayer", client, "Chat_Prefix", "Chat_DiscordNotifyPlayer", "Chat_TimeToDiscord", TimeToReady);
+	CPrintToChat(clientChoose, "%t %t", "Chat_Prefix", "Chat_ToCheckPlayer", client);
+	CPrintToChat(clientChoose, "%t %t, %t", "Chat_Prefix", "Chat_DiscordNotifyPlayer", "Chat_TimeToDiscord", TimeToReady);
 }
 
 public void GiveOverlay(int client, char[] path)
